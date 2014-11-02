@@ -1,0 +1,182 @@
+ <div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="properties">
+    <div class="container">
+      <div class="grid_full_width gird_sidebar" style="padding-top:10%">
+        <div class="row">
+         <!-- Main content -->
+         <div class="span8">
+           <!-- Property detail -->
+           <div class="property_detail">
+            <section class="slider-detail">
+              <div id="pic-detail" class="flexslider">
+                <ul class="slides">
+                 <% imagem.forEach(function(item){ %>
+                  <li class="flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; display: list-item;">
+                    <a class="detailbox cboxElement" href="#" title="<%= produto.titulo %>"><img alt="" width="520" height="288" src="img/files/<%= item.nome %>"></a>
+                  </li>
+                  <%});%>
+                </ul>
+              </div>
+              
+              <div id="pic-control" class="flexslider">
+
+              <div class="flex-viewport" style="overflow: hidden; position: relative;">
+              <ul class="slides" style="width: 2000%; -webkit-transition: 0s; transition: 0s; -webkit-transform: translate3d(0px, 0px, 0px);">
+                 <% imagem.forEach(function(item){ %>
+                  <li class="flex-active-slide" style="width: 55px; float: left; display: block;">
+                    <img alt="" src="img/files/<%= item.nome %>">
+                  </li>
+                  <%});%>
+                </ul></div><ul class="flex-direction-nav"><li><a class="flex-prev flex-disabled" href="#">Previous</a></li><li><a class="flex-next" href="#">Next</a></li></ul></div>
+            </section>
+            
+             <%
+              function mascararMoeda(valor) {
+	var valorStr = new String(parseFloat(valor).toFixed(2));
+	valorStr = valorStr.replace(/\D/g, "");
+	valorStr = valorStr.replace(/[0-9]{19}/, "inválido");
+	valorStr = valorStr.replace(/(\d{1})(\d{17})$/, "$1.$2");
+	valorStr = valorStr.replace(/(\d{1})(\d{14})$/, "$1.$2");
+	valorStr = valorStr.replace(/(\d{1})(\d{11})$/, "$1.$2");
+	valorStr = valorStr.replace(/(\d{1})(\d{8})$/, "$1.$2");
+	valorStr = valorStr.replace(/(\d{1})(\d{5})$/, "$1.$2");
+	valorStr = valorStr.replace(/(\d{1})(\d{1,2})$/, "$1,$2");
+	return valorStr;
+}  
+            
+            %>
+            <div class="fb-like" data-href="https://www.facebook.com/grupodicol" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+            <div class="infotext-detail">
+              <h3><%= produto.titulo %> </h3>
+              <span class="price"><%= mascararMoeda(produto.vlrImovel) %></span>
+              <div class="row">
+                <div class="span260px">
+                  <ul class="title-info">
+                    <li>Tipo: <span><%= produto.descricao.toUpperCase() %></span></li>
+                    <li>Quartos: <span><%= produto.qtdQuartos %> </span> </li>
+                    <li>Cômodos: <span><%= produto.qtdComodos %> </span></li>
+                     <li>Garagens: <span> <%= produto.qtdGaragem %></span></li>
+                    <li>Área:<span><%= produto.area %>m²</span></li>
+                    <li>Localização:<span><%= produto.endereco.toUpperCase() +", "+ produto.bairro.toUpperCase() +", "+ produto.cidade.toUpperCase() +"-"+ produto.siglaUf.toUpperCase() %></span></li>
+                  </ul>
+                </div>
+                <div class="span260px pull-right">
+                  <ul class="title-info">
+                    
+                  </ul>
+                </div>
+              </div>
+              <div class="excerpt">
+              <span>Descrição:</span>
+                <p><%= produto.observacao%></p>
+              </div>
+            </div>
+            <p>
+             <center>
+             <div class="fb-comments" data-href="https://www.facebook.com/grupodicol" data-width="614" data-numposts="6" data-colorscheme="light"></div>
+             </center>
+             </p>
+          </div>
+          <!-- End Property -->
+        </div>
+        <!-- End Main content -->  
+        
+        
+        <!-- Sidebar left  -->
+        <div class="span4">
+          <div class="box-siderbar-container">
+            <!-- sidebar-box map-box -->
+            <div class="sidebar-box map-box">
+              <h3>Anuncie aqui</h3>
+                
+            </div>
+            <!-- End sidebar-box map-box -->
+            
+            <!-- sidebar-box our-box -->
+            <div class="sidebar-box our-box">
+              <div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="260" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="false"></div>
+            </div>
+            <!-- End sidebar-box our-box -->
+            
+            
+            <!-- sidebar-box product_list_wg -->
+            <div class="sidebar-box">
+              <h3>Anuncie aqui</h3>
+              <ul class="product_list_wg">
+                <li>
+                  <div class="clearfix">
+                    <a title="" href="#">
+                      <img width="90" height="54" alt="" class="thumbnail_pic" src="">
+                    </a> 
+                    <div class="amount"></div>
+                  </div>
+                </li>
+                <li>
+                  <div class="clearfix">
+                    <a title="" href="#">
+                      <img width="90" height="54" alt="" class="thumbnail_pic" src="">
+                    </a> 
+                    <div class="amount"></div>
+                  </div>
+                </li>
+                <li>
+                  <div class="clearfix">
+                    <a title="" href="#">
+                      <img width="90" height="54" alt="" class="thumbnail_pic" src="">
+
+                    </a> 
+                    <div class="amount"></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- End sidebar-box product_list_wg -->
+            
+          </div>
+        </div>
+        <!-- End Sidebar left  -->
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+jQuery(function($){
+  $('#pic-control').flexslider({
+    animation: "slide",
+    controlNav: false,
+
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 55,
+    itemMargin: 10,
+    maxItems: 7,
+    asNavFor: '#pic-detail'
+  });
+
+  $('#pic-detail').flexslider({
+    controlNav: false,
+    directionNav: false,
+    animationLoop: false,
+    slideshow: false,
+    sync: "#pic-control",
+    start: function(slider){
+      $('body').removeClass('loading');
+    }
+  });
+
+  $(".detailbox").colorbox({rel:'detailbox'});
+});
+/* ]]> */
+</script>
+

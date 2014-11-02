@@ -1,0 +1,102 @@
+<header>
+	<h2>Tipo Imóvel</h2>
+</header>
+<section>
+	<form id="frmTipoImovel" action="tipoImovel" method="post" role="form" class="form-horizontal">
+		<input type="hidden" name="_method" value="<%= tipoImovel.idTipoImovel == undefined ? 'post' : 'put' %>">
+		<input type="hidden" name="_codigo" value="<%= tipoImovel.idTipoImovel %>">
+
+		<div class="form-group">
+			<label for="inpCodigo" class="control-label col-sm-2">Código:</label>
+			<div class="col-sm-2">
+				<input disabled="true" name="tipoImovel[idTipoImovel]" id="inpCodigo" class="form-control"
+				value="<%= tipoImovel.idTipoImovel == undefined  ? "" : tipoImovel.idTipoImovel  %>"
+				>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inpDescricao" class="control-label col-sm-2">Descrição:</label>
+			<div class="col-sm-2">
+				<input name="tipoImovel[descricao]" id="inpDescricao" class="form-control"
+				required
+				value="<%= tipoImovel.descricao == undefined  ? "" : tipoImovel.descricao  %>"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" style="display:none;">
+			<label for="inpStatus" class="control-label col-sm-2">Ativo:</label>
+			<div class="col-sm-2">
+				<input name="tipoImovel[status]" id="inpStatus" class="form-control" type="checkbox"
+				value="<%= tipoImovel.status == undefined  ? "" : tipoImovel.status %>"
+				>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2"></label>
+			<div class="col-sm-2">
+				<a id="btnConfirmar" class="btn btn-primary">Confirmar </a>
+				<a id="btnCancelar" class="btn btn-default">Cancelar</a>
+			</div>
+		</div>
+	</form>
+	
+	
+</section>
+
+<script>
+function save() {
+	var formVars = $("#frmTipoImovel").serialize();
+	$.ajax({ url: 'tipoImovel', 
+		cache: false,
+		type: 'POST',
+		data: formVars,
+		success: function (data) { 
+			alert('Registrado com sucesso');
+			carregarPagina('/tipoImovel');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log('error');
+		}
+	});
+}
+
+function edit(id) {
+	var formVars = $("#frmTipoImovel").serialize();
+	$.ajax({ url: 'tipoImovel/' + id , 
+		cache: false,
+		type: 'PUT',
+		data: formVars,
+		success: function (data) { 
+			alert('Alterado com sucesso');
+			carregarPagina('/tipoImovel');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("erro ao editar")
+			console.log('error');
+		}
+	});	
+}
+
+
+$('#btnConfirmar').on('click', function(event) {
+
+	 if(!validarFormulario("frmTipoImovel")) {
+	 	return;
+	 }
+	
+	var codigo = $('[name="_codigo"]').val();	
+	if(codigo === "undefined")  {
+		save();
+	} else {
+		edit(codigo);
+	}	
+	event.preventDefault();
+});
+
+$("#btnCancelar").on('click', function(event) {
+	carregarPagina('/tipoImovel');
+});
+
+</script>

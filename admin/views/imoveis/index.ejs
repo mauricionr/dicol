@@ -1,0 +1,143 @@
+<header>
+	<h2>Manutenção de Imóveis<h2>
+	</header>
+	<form class="navbar-form navbar-left" role="search">
+		<div class="form-group">
+			<input type="search" class="form-control input-lg" placeholder="Pesquisar por...">
+		</div>
+		<a class="btn btn-primary btn-lg" href="#" id="btnNovoImovel"> <i class="glyphicon glyphicon-plus-sign"></i> Novo</a>
+	</form>
+	<section>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Titulo</th>
+					<th>Quartos</th>
+					<th>Garagem</th>
+					<th>Cidade</th>
+					<th>Endereço</th>
+					<th>Valor</th>
+					<th>Ações</th>
+					<th>SlideShow</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<% if(imoveis.length== 0) { %>
+				<tr>
+					<td colspan="8" style="text-align: center;">Nenhum registro encontrado</td>
+				</tr>				
+				<% } %>
+				<% imoveis.forEach(function(m,index) { %>
+				<tr>
+					<td><%- m.idProduto %> </td>
+					<td><%- m.titulo %></td>
+					<td><%- m.qtdQuartos %></td>
+					<td><%- m.qtdGaragem %></td>
+					<td><%- m.desc_cidade %></td>
+					<td><%- m.endereco %></td>
+					<td><%- m.vlrImovel %></td>
+					<td>
+						<a class="btn btn-primary" href="#" title="Carregar Imagens" onclick="uploadImagem(<%- m.idProduto %>);"><i class="glyphicon glyphicon-list-alt"></i>Imagem</a>
+						<a class="btn btn-primary" id="alterarImovel" href="#" title="Editar" data-codigo="<%- m.idProduto %> "><i class="glyphicon glyphicon-list-alt"></i>Editar</a>
+						<a id="excluirImovel" data-codigo="<%- m.idProduto %>" class="btn btn-primary" href="#" title="Excluir"><i class="glyphicon glyphicon-trash"></i>Excluir</a>
+					</td>
+					<td><input type="checkbox" class="ck_slideshow" data="<%= m.idProduto %>" <% if(m.slideshow == "s"){%> checked <%}%>> </td>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+
+
+	</section>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Confirma exclus&atilde;o</h4>
+				</div>
+				<div class="modal-body">
+					Deseja confirmar a exclus&atilde;o desse registro?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelar">Cancelar</button>
+					<button type="button" class="btn btn-primary" id="btnConfirmarExcluir">Confirmar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var idExcluir;
+		//Ao clicar em um novo imovel
+		$('#btnNovoImovel').on('click', function(event) {
+			carregarPagina('/imoveis/new');	
+			event.preventDefault();
+		});
+
+		$('[id=excluirImovel]').on('click', function(event) {		
+			var id = $(this).attr('data-codigo');			
+			idExcluir = id;	
+			$('#btnConfirmarExcluir').off('click').on('click',function(event) {
+				excluir(idExcluir);
+			});
+			$('#myModal').modal('show');	
+			event.preventDefault();
+		});
+
+		$('[id=alterarImovel]').on('click',function(event) {
+			var id = $(this).attr('data-codigo');
+			carregarPagina('/imoveis/' + id);
+		});
+
+		function excluir(id) {			
+			$.ajax({ url: '/imoveis/' + id , 				
+				cache: false,
+				type: 'DELETE',		
+				async: false,
+				success: function (data) { 
+					$('#myModal').modal('hide');
+					alert('Excluido com sucesso');
+					carregarPagina("/imoveis");
+				}, 
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('error');
+				}
+			});
+		}
+
+		function uploadImagem(id) {
+			carregarPagina('/imoveis/upload/' + id);
+		}
+		
+		$(".ck_slideshow").change(function(){
+            var id_produto = $(this).attr('data');
+            var flag = 'n'; 
+            
+            if($(this).is(":checked")){
+                flag = 's';
+            }
+            
+            console.log(flag);
+            console.log(id_produto);
+            
+            me = this;
+            $.ajax({
+               url: "/upload_images/slides/"+ id_produto + "/" + flag,
+                type: "GET",
+                data: {
+                    flag : flag,
+                    idProduto : id_produto
+                }
+            }).error(function(err){
+                console.log('Erro ao alterar slideshow!' + err);
+            }).success(function(){
+                console.log('Alteração realizada!');
+            });
+        });
+
+		</script>
+
+

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>
+	<% if(typeof title != "undefined"){%>
+	<%= title %>
+	<% }%>
+	</title>
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="/css/flexslider/flexslider.css" rel="stylesheet" media="screen">
+    <link href="/css/tabber/tabber.css" rel="stylesheet" media="screen">
+    <link href="/css/styles.css" rel="stylesheet" media="screen">
+    <link href="/css/responsive.css" rel="stylesheet" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,100,200,300' rel='stylesheet' type='text/css'>
+    <!-- HTML5 shim, for Ie6-8 support of HTML5 elements -->
+    <!--[if lt Ie 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- styles for Ie -->                                                                                                                          
+       <!-- <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/main.css" rel="stylesheet" type="text/css"/>-->
+    	<script src="/js/jquery-1.8.3.min.js"></script>
+    	<script src="/js/query.ui.js"></script>
+    	 <script src="/js/jquery.mixitup.min.js"></script>
+	    <script src="/js/prototype.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+     <!-- BEGIN HEADER -->
+    <header>
+
+      <div class="container">
+        <div id="messageContainer"></div>
+        <div class="top-header">
+          
+          <!-- Logo -->
+          <div class="realestate-logo pull-left"><a href="/" title="Dicol"><img alt="" id="logo" width="234" height="142" src="/img/logoLow.png"></a></div>
+          <!-- End Logo -->
+          
+          <!-- Menu --> 
+
+          <div class="menu-navbar  pull-left">
+
+            <div class="navbar">
+
+              <ul class="nav" id="navmenu">
+
+               <li><a class="brand home" href="#" title="">Home</a></li>
+
+               <li class="dropdown">
+                
+                <a class="dropdown-toggle propriedades home" data-target="#" data-toggle="dropdown" href="#">Nossos Produtos </a>
+
+                <ul class="dropdown-menu">
+                <% imoveis.forEach(function(item){ %>
+                  <li><a href="#" id="<%= item.descricao %>" data-id="<%= item.idTipoImovel %>" class="propriedades tipo"><%= item.descricao.toUpperCase() %></a></li>
+                  <%});%>
+
+                </ul>
+
+                <div class="clearfix"></div>
+
+              </li>
+              
+              <li><a id="quemsomos" href="#quemsomos" class="" title="Quem somos">Quem somos</a></li>
+
+              <li><a class="contato" href="#contato" title="Contato">Contato</a></li>
+
+           </ul>
+
+         </div>
+
+       </div>
+
+       <!-- End Menu --> 
+       
+     </div>
+   </div>
+    <!-- Slider Home -->
+   <!-- Flexslider -->
+   <div id="slider-home" class="row-fluid slider-home">
+    <div class="span12">
+      <section class="slider">
+        <div id="main-slider" class="flexslider">
+          <ul class="slides">
+           <% slides.forEach(function(item){ if(item.flag != 'n'){%>
+            <li>
+              <div class="container flex-caption">
+                <div class="title">
+                  <span> 
+                   <%= item.titulo %>	
+                  </span>
+                </div>
+              </div>
+              <img alt="" width="1440" height="600" src="img/files/<%= item.nome %>" />
+            </li>
+            <%} });%>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- End Flexslider -->
+  
+  <!-- End Slider home -->
+  
+</header>
+
+<!-- END HEADER -->
+
+<!-- BEGIN CONTENT -->
+<div class="main-content">
+
+	<!-- Tabber Find -->
+	<!-- Tabber -->
+  <div id="findtabber" class="find">
+    <div class="container">
+      <div class="tabber">
+        <div class="tabbertab">
+          <h2>À Venda</h2>
+          <form>
+            <div class="row">
+                <div class="span3">
+                    <label>
+                        <select class="comboSearchProp">
+                            <option value="9999">Tipo de propriedade</option>
+                      <% imoveis.forEach(function(item){ %>
+                            <option value="<%= item.idTipoImovel %>"><%= item.descricao.toUpperCase() %></option>
+                        <%});%>
+                        </select>
+                    </label>
+                </div>
+                 <div class="span3">
+                    <label>
+                        <select class="comboSearchQuartos">
+                            <option value="9999">Quartos</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="span3">
+                    <label>
+                        <select class="comboSearchComodos">
+                            <option value="9999">Cômodos</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <label>
+                        <input type="search" class="keywordfind" placeholder="Palavra para localizar o imóvel">
+                    </label>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="tabbertab">
+          <h2> </h2>
+           <form>
+            <div class="row">
+                <div class="span3">
+                    <label>
+                        <select class="comboSearchProp">
+                            <option value="9999">Tipo de propriedade</option>
+                            <% imoveis.forEach(function(item){ %>
+                            <option value="<%= item.idTipoImovel %>"><%= item.descricao %></option>
+                        <%});%>
+                        </select>
+                    </label>
+                </div>
+                 <div class="span3">
+                    <label>
+                        <select class="comboSearchQuartos">
+                            <option value="9999">Quartos</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="span3">
+                    <label>
+                        <select class="comboSearchComodos">
+                            <option value="9999">Cômodos</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <label>
+                        <input type="search" class="keywordfind" placeholder="Palavra para localizar o imóvel">
+                    </label>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!-- Tabber -->
+  <!-- End Tabber Find -->
+  
+  <!-- Properties -->
+  <div class="properties">
+   <!-- Properties scroll -->
+   
+   <!-- Nicescroll -->
+   <div id="property-scroll" style="display:none;" class="container">
+    <div id="wrapper">
+      <div class="box">
+        <div class="scroll-properties clearfix">
+          <div class="row col-home">
+            <div class="span6">
+              <div class="container-big">
+                <img alt=""  src="/img/460x460.gif">
+                <article class="text-big">
+                  <div class="infotexthv">
+                    <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                    <p>Descrição da imagem</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="span6">
+              <div class="row divspace">
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span6">
+              <div class="container-big">
+                <img alt="" src="/img/460x460.gif">
+                <article class="text-big">
+                  <div class="infotexthv">
+                    <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                    <p>Descrição da imagem</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="span6">
+              <div class="row divspace">
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="span3">
+                  <div class="container-small">
+                    <img alt="" src="/img/220x220.gif">
+                    <article class="text-small">
+                      <div class="infotexthv">
+                        <h3><a href="property_detail.html" title=""> Títula da imagem</a> </h3>
+                        <p>Descrição da imagem</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Nicescroll -->
+  <!-- End Scroll -->
+  
+  <!-- Properties List -->
+  <div id="property-list" class="container">
+    <h3>Propriedades </h3>
+    <!-- Filterable -->  
+    <div class="filter-pro clearfix">
+      <div class="row">
+        <div class="span8" id="menu-propriedades">
+          <ul  id="able-filter">
+            <li><a href="#" title="Todos" class="tipo" data-id="9999">Todos</a></li>
+             <% imoveis.forEach(function(item){ %>
+            <li><a href="#" id="<%= item.descricao %>"  class="tipo" data-id="<%= item.idTipoImovel %>"><%= item.descricao %></a></li>
+            <%});%>
+          </ul>
+        </div>
+        <div class="span4">
+          <div class="list-grid pull-right">
+            <!--<ul>-->
+            <!--  <li><a href="grid_fullwidth_4_column.html"><i class="grid4col"></i></a></li>-->
+            <!--  <li><a class="active" href="grid_fullwidth_3_column.html"><i class="grid3col"></i></a></li>-->
+            <!--  <li><a href="list_fullwidth2.html"><i class="grid2list"></i></a></li>-->
+            <!--</ul>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Filterable -->  
+    <div class="row" id="products">
+      <ul class="products">
+        <% produtos.forEach(function(item){ %>
+        <li style="display: block;" data-codigo="<%= item.idProduto %>"  class="mix <%= item.descricao %> span4">
+          <div class="product-item">
+            <div class="imagewrapper">
+            <a class="produtos" href="#" title="<%= item.titulo %>">
+              <img alt="" width="300" height="180" src="img/files/<%= item.nome %>">
+            </a>
+              <span class="price"> R$<%= mascararMoeda(item.vlrImovel) %></span>
+            </div>
+            <h3><a class="produtos" href="#" data-codigo="<%= item.idProduto %>" title="<%= item.titulo %>"> <li><%= item.titulo %> </li></a></h3>
+            <ul class="title-info">
+              <li data-quartos="<%= item.qtdQuartos %>">Quartos <span> <%= item.qtdQuartos %></span> </li>
+              <li data-garagens="<%= item.qtdGaragem %>">Garagens <span> <%= item.qtdGaragem %></span></li>
+              <li>Metros Quadrados <span><%= item.area %>m²</span></li>
+              <li>Tipo: <span><%= item.descricao.toUpperCase() %></span></li>
+            </ul>
+          </div>
+        </li>
+        <%});%>
+      </ul>
+    </div>
+      <div id="targetScroll"></div>
+  </div>
+  <!-- End Properties List -->
+</div>
+</div>
+</div>
+<!-- END CONTENT -->
+   <!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div class="container">
+      <!-- Footer box -->
+      <div class="footer-top">
+        <div class="row">
+          <div class="span4">
+            <p>Av. Antônio Carlos Paniago, Nº1024,<br> Setor Cambaúva. <br>CEP:75830-000.<br><i class="glyphicon glyphicon-earphone"></i> +55 64 3661-5097<br>Mineiros - Goiás</p>
+          </div>
+          <div class="span4">
+           <h3>Parceiros</h3>
+          </div>
+          <div class="span4">
+            <h3>Links úteis</h3>
+            <ul>
+              <li><a href="/" title="">Página Inicial</a></li>
+              <li><a href="#" title="">Termos e Condições</a></li>
+              <li><a class="contato" href="#" title="">Ajuda</a></li>
+            </ul>
+          <!--  <p>Sobre os anuncios aqui</p>-->
+          </div>
+        </div>
+      </div>
+      <!-- End Footer box -->
+      <div class="footer-bottom">
+        <div class="row">
+          <div class="span6">
+            <p>Copyright © 2014 Dicol, todos os direitos reservados.</p>
+          </div>
+          <div class="span6">
+            <div class="social pull-right">
+              <ul>
+                <li><a class="facebook" title="" href="https://www.facebook.com/grupodicol"> Facebook </a></li>
+                <li><a class="contato email" title="" href="#"> Email </a></li>
+                <!--<li><a class="googplus" title="" href="#"> googplus </a></li>-->
+                <!--<li><a class="pinterest" title="" href="#"> pinterest </a></li>-->
+                <!--<li><a class="feed" title="" href="#"> Feed </a></li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div id='bttop'>BACK TO TOP</div>
+<!-- END FOOTER -->
+
+	<!-- JAVASCRIPTS -->
+            <script src="/js/libs/mensagens.js"></script>
+		<script src="/js/libs/dicolCommon.js"></script>
+	<!-- Always latest version of jQuery-->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Some scripts that are used in almost every page -->
+    <script src="/js/tinynav/tinynav.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/tabber/tabber.js"></script>
+    <!-- Load template main javascript file -->
+    <script type="text/javascript" src="/js/main.js"></script>
+
+    <!-- ===================================================== -->
+    <!-- ================ Index page only scripts ============ -->
+    <script src="/js/flexflider/jquery.flexslider-min.js"></script>
+    <script src="/js/nicescroll/jquery.nicescroll.js"></script>
+    <script src="/js/filterable/filterable.js"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+        jQuery(function($){
+            $('#main-slider').flexslider();
+
+            jQuery('.box').niceScroll({
+                autohidemode:false,
+                scrollspeed: 100,
+                cursorcolor: '#d84949',
+                cursorwidth: '15px',
+                cursorborderradius: '0px',
+                cursorborder: '0',
+                background: '#dddddd'
+            });
+        });
+    /* ]]> */
+    </script>
+    
+	<!-- Configurações google analytics -->
+	<script>
+ 	   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+ 	   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ 	   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+ 	   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 	   ga('create', 'UA-49184935-1', 'dicol.com.br');
+ 	   ga('send', 'pageview');	
+	</script>
+	<script>
+	    $(document).ready(function(){
+	        $($('.tabbernav a')[1]).html('')
+	    });
+	</script>
+</body>
+</html>
+   
+   

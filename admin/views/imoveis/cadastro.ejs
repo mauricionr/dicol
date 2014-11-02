@@ -1,0 +1,230 @@
+<header>
+	<h2>Incluir Imóveis</h2>
+</header>
+<section>
+	<form action="imoveis" method="post" role="form" id="frmImovel" class="form-horizontal">
+		<input type="hidden" name="_method" value="post">
+		<input type="hidden" id="hdCodigo" name="_codigo" value="<%= produto.idProduto %>">
+		<div class="form-group">
+			<label for="inpCodigo" class="control-label col-sm-2">Código:</label>
+			<div class="col-sm-2">
+				<input disabled="true" name="produto[idProduto]" id="inpCodigo" class="form-control">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inpDescricao"  class="control-label col-sm-2">Título:</label>
+			<div class="col-sm-6">				
+				<input id="inpDescricao" name="produto[titulo]" value="<%= produto.titulo == undefined  ? "" : produto.titulo  %>" class="form-control" maxlength="70" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpTipo">Tipo:</label>
+			<div class="col-sm-4">
+				<select name="produto[idTipoImovel]" class="form-control" required>
+					<option value>Selecione...</option>
+					<% tipoImoveis.forEach(function(m,index) { %>
+						<option value="<%- m.idTipoImovel  %>" <%= produto.idTipoImovel == m.idTipoImovel ? 'selected' : ''%> ><%- m.descricao  %></option>
+					<% }); %>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpEstado">UF:</label>
+			<div class="col-sm-2">
+				<select name="produto[siglaUf]" class="form-control" required value="<%= produto.siglaUf == undefined  ? "" : produto.siglaUf  %>">
+					<option value>Selecione...</option>
+					<% estados.forEach(function(m,index) { %>
+						<option value="<%- m.siglaUf  %>" <%= produto.siglaUf == m.siglaUf ? 'selected' : ''%> ><%- m.siglaUf %>  - <%- m.descricao %></option>
+					<% }); %>
+				</select>
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpCidade">Cidade:</label>
+			<div class="col-sm-2">
+				<select name="produto[idCidade]" class="form-control" required value="<%= produto.idCidade == undefined  ? "" : produto.idCidade  %>">
+					<option value>Selecione...</option>
+					<% cidades.forEach(function(m,index) { %>
+					<option data-estado="<%- m.siglaUf %>" data-ibge="<%- m.codIbge -%>" value="<%- m.idCidade  %>"
+						<%= produto.idCidade == m.idCidade ? 'selected' : ''%>><%- m.descricao  %></option>
+					<% }); %>
+				</select>
+			</div>		
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="bairro">Bairro:</label>
+			<div class="col-sm-2">
+				<input type="text" name="produto[bairro]" maxlength="50" class="form-control" required
+					value="<%= produto.bairro == undefined  ? "" : produto.bairro  %>"
+				>
+			</div>		
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpEndereco">Endereço:</label>
+			<div class="col-sm-4">
+				<input name="produto[endereco]" maxlength="60" class="form-control" required
+				value="<%= produto.endereco == undefined  ? "" : produto.endereco  %>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpQtdQuartos">Quartos:</label>
+			<div class="col-sm-2">
+				<input id="inpQtdQuartos" name="produto[qtdQuartos]" type="number" max="99" min="0" class="form-control"
+				maxlength="3" onkeypress="return somenteNumero(event);"
+				value="<%= produto.qtdQuartos == undefined  ? "" : produto.qtdQuartos  %>"
+				required
+				/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpGaragem">Vagas na Garagem:</label>
+			<div class="col-sm-2">
+				<input id="inpGaragem" type="number" max="99" min="0" class="form-control" name="produto[qtdGaragem]"
+				value="<%= produto.qtdGaragem == undefined  ? "" : produto.qtdGaragem  %>"
+				title="Quantidade de vagas na garagem" maxlength="3" onkeypress="return somenteNumero(event);"
+				required
+				/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpComodos">Cômodos:</label>
+			<div class="col-sm-2">
+				<input id="inpComodos" type="number" max="99" min="0" class="form-control" maxlength="3" onkeypress="return somenteNumero(event);" name="produto[qtdComodos]" 
+				value="<%= produto.qtdComodos == undefined  ? "" : produto.qtdComodos  %>"
+				title="Quantidade de Cômodos"
+				required
+				/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpArea">Área:</label>
+			<div class="col-sm-2">
+				<div class="input-group">
+					<input id="inpArea"  onkeypress="return somenteNumero(event);"  type="text" max="99" min="0" 
+					value="<%= produto.area == undefined  ? "" : produto.area  %>"
+					class="form-control" name="produto[area]" maxlength="10" required/>
+					<span class="input-group-addon">m²</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="chkAlugar">Alugar:</label>
+			<div class="col-sm-1">
+				<input id="chkAlugar" type="checkbox" max="99" min="0" class="form-control" name="produto[paraAlugar]"
+				<%= produto.paraAlugar == "S"  ? "checked" : "" %>/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="chkVenda">Venda:</label>
+			<div class="col-sm-1">
+				<input id="chkVenda" type="checkbox" max="99" min="0" class="form-control" 
+				<%= produto.paraVender == "S"  ? "checked" : "" %>
+				name="produto[paraVender]"/>
+			</div>
+		</div>	
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpValor">Valor Aluguel:</label>
+			<div class="col-sm-3">
+				<input id="inpAluguel" onkeypress="return somenteNumero(event);" 
+				value="<%= produto.vlrAluguel == undefined  ? "" : produto.vlrAluguel  %>"
+				type="text" max="99" min="0" class="form-control" name="produto[vlrAluguel]" maxlength="10" disabled="true" required/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inpValor">Valor Venda:</label>
+			<div class="col-sm-3">
+				<input id="inpValor" onkeypress="return somenteNumero(event);" 
+				value="<%= produto.vlrImovel == undefined  ? "" : produto.vlrImovel  %>"
+				type="text" max="99" min="0" class="form-control" name="produto[vlrImovel]" maxlength="10" disabled="true" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="observacao">Observação:</label>
+			<div class="col-sm-3">
+				<textarea rows="10" cols="60" name="produto[observacao]" maxlength="500">
+					<%= produto.observacao == undefined  ? "" : produto.observacao  %>
+				</textarea>
+			</div>
+		</div>	
+		<div class="form-group">
+			<label class="control-label col-sm-2"></label>
+			<div class="col-sm-3">
+				<a type="submit" id="btnConfirmar" class="btn btn-primary">Confirmar</a>
+				<a href="#" class="btn btn-secundary" id="btnCancelarImovel">Cancelar</a>
+			</div>
+		</div>
+
+	
+	</section>
+</form>
+
+<script type="text/javascript">
+
+function save() {
+	var formVars = $("#frmImovel").serialize();
+	console.log(formVars)
+	$.ajax({ url: 'imoveis', 
+		cache: false,
+		type: 'POST',
+		data: formVars,
+		success: function (data) { 
+			alert('Registrado com sucesso!');
+			carregarPagina('/imoveis');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log('error');
+		}
+	});
+}
+
+function edit(id) {
+	var formVars = $("#frmImovel").serialize();
+	$.ajax({ url: 'imoveis/' + id , 
+		cache: false,
+		type: 'PUT',
+		data: formVars,
+		success: function (data) { 
+			alert('Alterado com sucesso!');
+			carregarPagina('/imoveis');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("erro ao editar")
+			console.log('error');
+		}
+	});	
+}
+
+
+
+$('#btnConfirmar').on('click', function(event) {
+	if(validarFormulario('frmImovel')) {
+		if($('#hdCodigo').val() == "undefined")
+			save();
+		else {
+			edit($('#hdCodigo').val());
+		}
+	};
+});
+
+$('#btnCancelarImovel').on('click', function(event) {
+	carregarPagina('/imoveis');
+	event.preventEventDefault();
+});
+
+$('#chkAlugar').on('click',function(event) {
+	$('#inpAluguel').attr('disabled',!$(this).is(':checked'));
+});
+
+
+$('#chkVenda').on('click',function(event) {
+	$('#inpValor').attr('disabled',!$(this).is(':checked'));
+});
+
+
+</script>

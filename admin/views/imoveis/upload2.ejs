@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css" />
+<script type="text/javascript">
+    
+    $(function() {
+
+        $("#file_upload").uploadify({
+            height        : 30,
+            swf           : '/uploadify/uploadify.swf',
+            uploader      : '/upload_images/<%=produto.idProduto%>',
+            width         : 120,
+            onUploadSuccess : function(file,data,res){
+                carregarPagina('/imoveis/upload/' + <%=produto.idProduto%>);
+            }
+        });
+        
+        $(".bt_tornar_principal").click(function(){
+            id_img = $(this).attr('data');
+            me = this;
+            $.ajax({
+                url: "/upload_images/tornar_principal/"+ <%=produto.idProduto%> + "/" + id_img,
+                type: "GET",
+                data: {
+                    idImagem : id_img,
+                    idProduto : <%=produto.idProduto%> 
+                }
+            }).done(function() {
+                carregarPagina('/imoveis/upload/' + <%=produto.idProduto%>);
+            });
+        });
+        
+           $(".bt_slideshow").click(function(){
+            id_img = $(this).attr('data');
+            me = this;
+            $.ajax({
+                url: "/upload_images/slideshow/"+ <%=produto.idProduto%> + "/" + id_img,
+                type: "GET",
+                data: {
+                    idImagem : id_img,
+                    idProduto : <%=produto.idProduto%> 
+                }
+            }).done(function() {
+                carregarPagina('/imoveis/upload/' + <%=produto.idProduto%>);
+            });
+        });
+
+        $(".bt_excluir").click(function(){
+            id_img = $(this).attr('data');
+            me = this;
+            $.ajax({
+                url: "/upload_images/excluir_imagem/" + id_img,
+                type: "GET",
+                data: {
+                    idImagem : id_img
+                }
+            }).done(function() {
+                carregarPagina('/imoveis/upload/' + <%=produto.idProduto%>);
+            });
+        });
+        
+        $("#danger").hover(function(){
+            $(".danger").focus();
+        });
+        
+        $("#success").hover(function(){
+            $(".success").focus();
+        });
+        
+        $("#info").hover(function(){
+            $(".info").focus();
+        });
+
+    });
+
+    
+
+</script>
+
+<input type="file" name="file_upload" id="file_upload" />
+<div class="pull-right">
+    <strong id="danger"><button class="btn-danger"></button> Principal/SlideShow</strong>
+    <strong id="success"><button class="btn-success"></button> Principal</strong>
+    <strong id="info"><button class="btn-info"></button> SlideShow</strong>
+</div>
+<table class="table table-hover">
+    
+    <thead>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Ações</th>
+    </thead>
+    <tbody>
+        <%
+            if(typeof imagens !== "undefined"){
+            imagens.forEach(function(m,index){
+        %>           
+        <tr <% if(m.principal == "s" && m.slideshow == "s"){%> 
+                    class='danger' 
+            <%}else{ 
+                 if(m.principal == "s"){%>
+                    class='success' 
+                 <%}else{ 
+                    if(m.slideshow == "s"){%> 
+                        class="info"
+                    <%}
+                }
+            }%>>
+            <td><img src="/files/<%=m.nome%>" width="80px" /></td>
+            <td><%=m.nome%></td>
+            <td>
+                <button type="button" class="btn btn-primary bt_tornar_principal" data="<%=m.idImagem%>">
+                Tornar principal
+                </button>
+                
+                <button class="btn btn-primary bt_slideshow" data="<%= m.idImagem %>" >SlideShow</button>
+                
+
+                <button type="button" class="btn btn-danger bt_excluir" data="<%=m.idImagem%>" <% if(m.principal == "s"){%> disabled="disabled" <%}%>>
+                Excluir</button>
+            </td>
+        </tr>
+        <% }); }%>
+
+    </tbody>
+
+</table>
+

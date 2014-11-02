@@ -1,0 +1,106 @@
+<header>
+	<h2>Tipo Imóvel</h2>
+</header>
+<section>
+	<form id="frmUsuario" action="usuario" method="post" role="form" class="form-horizontal">		
+		<input type="hidden" name="_codigo" value="<%= usuario.idUsuario %>">
+		<div class="form-group">
+			<label for="inpCodigo" class="control-label col-sm-2">Código:</label>
+			<div class="col-sm-1">
+				<input disabled="true" name="usuario[idUsuario]" id="inpCodigo" class="form-control"
+				value="<%= usuario.idUsuario == undefined  ? "" : usuario.idUsuario %>"
+				>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inpDescricao" class="control-label col-sm-2">Nome:</label>
+			<div class="col-sm-4">
+				<input name="usuario[nome]" id="inpDescricao" class="form-control"
+				required maxlength="120"
+				value="<%= usuario.nome == undefined  ? "" : usuario.nome  %>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inpDescricao" class="control-label col-sm-2">Login:</label>
+			<div class="col-sm-2">
+				<input name="usuario[login]" id="inpLogin1" class="form-control"
+				required maxlength="15"
+				value="<%= usuario.login == undefined  ? "" : usuario.login %>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inpDescricao" class="control-label col-sm-2">Senha:</label>
+			<div class="col-sm-2">
+				<input name="usuario[senha]" id="inpSenha1" class="form-control" type="password"
+				required maxlength="8"
+				value="<%= usuario.login == undefined  ? "" : usuario.login %>">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2"></label>
+			<div class="col-sm-2">
+				<a id="btnConfirmar" class="btn btn-primary">Confirmar </a>
+				<a id="btnCancelar" class="btn btn-default">Cancelar</a>
+			</div>
+		</div>
+	</form>
+	
+	
+</section>
+
+<script>
+function save() {
+	var formVars = $("#frmUsuario").serialize();
+	$.ajax({ url: 'usuario', 
+		cache: false,
+		type: 'POST',
+		data: formVars,
+		success: function (data) { 
+			alert('Registrado com sucesso');
+			carregarPagina('/usuario');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log('error');
+		}
+	});
+}
+
+function edit(id) {
+	var formVars = $("#frmUsuario").serialize();
+	$.ajax({ url: 'usuario/' + id , 
+		cache: false,
+		type: 'PUT',
+		data: formVars,
+		success: function (data) { 
+			alert('Alterado com sucesso');
+			carregarPagina('/usuario');
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("erro ao editar")
+			console.log('error');
+		}
+	});	
+}
+
+
+$('#btnConfirmar').on('click', function(event) {
+
+	if(!validarFormulario("frmUsuario")) {
+		return;
+	}
+	
+	var codigo = $('[name="_codigo"]').val();	
+	if(codigo === "undefined")  {
+		save();
+	} else {
+		edit(codigo);
+	}	
+	event.preventDefault();
+});
+
+$("#btnCancelar").on('click', function(event) {
+	carregarPagina('/usuario');
+});
+
+</script>

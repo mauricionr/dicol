@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador DICOL</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.fileupload.css" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!--js/jquery-1.10.2.min.js -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="css/shieldui-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/light-bootstrap-all.min.css" />
+    <script type="text/javascript" src="js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="js/gridData.js"></script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Menu principal</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">DICOL</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active"><a href="/dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li><a href="#" id="btnImoveis"><i class="fa fa-tasks"></i> Imóveis</a></li>                    
+                    <li><a href="#" id="btnCidades" style="display:none;"><i class="fa fa-globe"></i> Cidades & Bairros</a></li>
+                    <li><a href="#" id="btnTipoImovel"><i class="fa fa-list-ol"></i> Tipo Propriedade</a></li>
+                    <li><a href="#" id="btnUsuario"><i class="fa fa-user"></i> Usuários</a></li>                    
+                    <!--<li><a href="bootstrap-grid.html" ><i class="fa fa-table"></i > Contatos</a></li>    -->                
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">              
+                    <li class="dropdown user-dropdown">
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%- usuario.nome %><b class="caret"></b></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="#" id="btnTrocarSenha"><i class="fa fa-user"></i> Trocar Senha</a></li>
+                           <!--<li><a href="#"><i class="fa fa-gear" disabled="disabled"></i> Configuração</a></li> -->
+                           <li class="divider"></li>
+                           <li><a href="/sair"><i class="fa fa-power-off"></i> Sair</a></li>
+                       </ul>
+                   </li>
+               </ul>
+           </div>
+       </nav>
+
+       <div id="page-wrapper">
+            <div style="width: 100%; margin-top:8%;">
+                <center>
+                    <img src="logoTransp.png"/>
+                    <h2 style="color: #428bca; font-style: bold;">Seja Bem Vindo</h2>
+                </center>
+                <br/>
+                <br/>
+                <h5 style="text-align: right;">
+                    Powered by <a href="http://www.coderup.com.br">www.coderup.com.br</a>
+                </h5>
+            </div>
+        </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript">
+$('#btnTrocarSenha').on('click', function() {
+  carregarPagina('/usuario/<%- usuario.idUsuario %>');
+});
+  
+</script>
+</body>
+</html>

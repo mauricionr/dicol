@@ -1,0 +1,22 @@
+<% produtos.forEach(function(item){ %>
+    <li style="display: block;" data-codigo="<%= item.idProduto %>"  class="mix <%= item.descricao %> span4">
+      <div class="product-item">
+            <div class="imagewrapper">
+            <a class="produtos" href="#" title="<%= item.titulo %>">
+              <img alt="" width="300" height="180" src="img/files/<%= item.nome %>">
+            </a>
+              <span class="price"> R$<%= item.vlrImovel.toFixed(2) %></span>
+            </div>
+            <h3><a class="produtos" href="#" data-codigo="<%= item.idProduto %>" title="<%= item.titulo %>"> <li><%= item.titulo %> </li></a></h3>
+            <ul class="title-info">
+              <li data-quartos="<%= item.qtdQuartos %>">Quartos <span> <%= item.qtdQuartos %></span> </li>
+              <li data-garagens="<%= item.qtdGaragem %>">Garagens <span> <%= item.qtdGaragem %></span></li>
+              <li>Metros Quadrados <span><%= item.area %>m²</span></li>
+              <li>Tipo: <span><%= item.descricao.toUpperCase() %></span></li>
+            </ul>
+          </div>
+        </li>
+        <%});%>
+<script>
+    getProdutos();
+</script>

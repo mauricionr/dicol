@@ -1,0 +1,102 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.9
+3 info using node@v0.10.28
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/home/hermano/projetos/desenvolvimento/admin',
+5 verbose install   [ 'express',
+5 verbose install     'ejs',
+5 verbose install     'express-load',
+5 verbose install     'formidable',
+5 verbose install     'node-static',
+5 verbose install     'imagemagick' ] ]
+6 info preinstall dico-admin@0.0.1
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping express-load@1.1.7 /home/hermano/projetos/desenvolvimento/admin
+9 verbose already installed skipping ejs@0.8.4 /home/hermano/projetos/desenvolvimento/admin
+10 verbose already installed skipping formidable@>=1.0.11 /home/hermano/projetos/desenvolvimento/admin
+11 verbose already installed skipping node-static@>=0.6.5 /home/hermano/projetos/desenvolvimento/admin
+12 verbose already installed skipping express@3.3.x /home/hermano/projetos/desenvolvimento/admin
+13 verbose already installed skipping imagemagick@>=0.1.3 /home/hermano/projetos/desenvolvimento/admin
+14 silly resolved []
+15 info build /home/hermano/projetos/desenvolvimento/admin
+16 verbose linkStuff [ false, false, false, '/home/hermano/projetos/desenvolvimento' ]
+17 info linkStuff dico-admin@0.0.1
+18 verbose linkBins dico-admin@0.0.1
+19 verbose linkMans dico-admin@0.0.1
+20 verbose rebuildBundles dico-admin@0.0.1
+21 verbose rebuildBundles [ '.bin',
+21 verbose rebuildBundles   'blueimp-file-upload-node',
+21 verbose rebuildBundles   'cors',
+21 verbose rebuildBundles   'ejs',
+21 verbose rebuildBundles   'express',
+21 verbose rebuildBundles   'express-load',
+21 verbose rebuildBundles   'formidable',
+21 verbose rebuildBundles   'imagemagick',
+21 verbose rebuildBundles   'jade',
+21 verbose rebuildBundles   'mysql',
+21 verbose rebuildBundles   'node-static' ]
+22 verbose rebuild bundle /home/hermano/projetos/desenvolvimento/admin/node_modules/blueimp-file-upload-node
+23 info build /home/hermano/projetos/desenvolvimento/admin/node_modules/blueimp-file-upload-node
+24 info preinstall blueimp-file-upload-node@2.1.0
+25 verbose linkStuff [ false,
+25 verbose linkStuff   false,
+25 verbose linkStuff   false,
+25 verbose linkStuff   '/home/hermano/projetos/desenvolvimento/admin/node_modules' ]
+26 info linkStuff blueimp-file-upload-node@2.1.0
+27 verbose linkBins blueimp-file-upload-node@2.1.0
+28 verbose linkMans blueimp-file-upload-node@2.1.0
+29 verbose rebuildBundles blueimp-file-upload-node@2.1.0
+30 verbose rebuildBundles [ '.bin', 'formidable', 'imagemagick', 'node-static' ]
+31 info install blueimp-file-upload-node@2.1.0
+32 info postinstall blueimp-file-upload-node@2.1.0
+33 verbose rebuild bundle /home/hermano/projetos/desenvolvimento/admin/node_modules/cors
+34 info build /home/hermano/projetos/desenvolvimento/admin/node_modules/cors
+35 info preinstall cors@2.3.1
+36 verbose linkStuff [ false,
+36 verbose linkStuff   false,
+36 verbose linkStuff   false,
+36 verbose linkStuff   '/home/hermano/projetos/desenvolvimento/admin/node_modules' ]
+37 info linkStuff cors@2.3.1
+38 verbose linkBins cors@2.3.1
+39 verbose linkMans cors@2.3.1
+40 verbose rebuildBundles cors@2.3.1
+41 info install cors@2.3.1
+42 info postinstall cors@2.3.1
+43 verbose rebuild bundle /home/hermano/projetos/desenvolvimento/admin/node_modules/jade
+44 info build /home/hermano/projetos/desenvolvimento/admin/node_modules/jade
+45 info preinstall jade@1.3.1
+46 verbose linkStuff [ false,
+46 verbose linkStuff   false,
+46 verbose linkStuff   false,
+46 verbose linkStuff   '/home/hermano/projetos/desenvolvimento/admin/node_modules' ]
+47 info linkStuff jade@1.3.1
+48 verbose linkBins jade@1.3.1
+49 verbose link bins [ { jade: './bin/jade.js' },
+49 verbose link bins   '/home/hermano/projetos/desenvolvimento/admin/node_modules/.bin',
+49 verbose link bins   false ]
+50 verbose linkMans jade@1.3.1
+51 verbose rebuildBundles jade@1.3.1
+52 verbose rebuildBundles [ 'character-parser',
+52 verbose rebuildBundles   'commander',
+52 verbose rebuildBundles   'constantinople',
+52 verbose rebuildBundles   'mkdirp',
+52 verbose rebuildBundles   'monocle',
+52 verbose rebuildBundles   'transformers',
+52 verbose rebuildBundles   'with' ]
+53 error Error: EPERM, chmod '/home/hermano/projetos/desenvolvimento/admin/node_modules/jade/bin/jade.js'
+53 error  { [Error: EPERM, chmod '/home/hermano/projetos/desenvolvimento/admin/node_modules/jade/bin/jade.js']
+53 error   errno: 50,
+53 error   code: 'EPERM',
+53 error   path: '/home/hermano/projetos/desenvolvimento/admin/node_modules/jade/bin/jade.js' }
+54 error Please try running this command again as root/Administrator.
+55 error System Linux 3.13.0-24-generic
+56 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+57 error cwd /home/hermano/projetos/desenvolvimento/admin
+58 error node -v v0.10.28
+59 error npm -v 1.4.9
+60 error path /home/hermano/projetos/desenvolvimento/admin/node_modules/jade/bin/jade.js
+61 error code EPERM
+62 error errno 50
+63 error stack Error: EPERM, chmod '/home/hermano/projetos/desenvolvimento/admin/node_modules/jade/bin/jade.js'
+64 verbose exit [ 50, true ]
